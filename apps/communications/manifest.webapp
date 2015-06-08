@@ -8,35 +8,6 @@
     "url": "https://github.com/mozilla-b2g/gaia"
   },
   "entry_points": {
-    "dialer": {
-      "launch_path": "/dialer/index.html#keyboard-view",
-      "name": "Phone",
-      "icons": {
-        "84": "/dialer/style/icons/dialer_84.png",
-        "126": "/dialer/style/icons/dialer_126.png",
-        "142": "/dialer/style/icons/dialer_142.png",
-        "189": "/dialer/style/icons/dialer_189.png",
-        "284": "/dialer/style/icons/dialer_284.png"
-      },
-      "locales": {
-        "ar": {
-          "name": "هاتف",
-          "description": "Gaia هاتف"
-        },
-        "en-US": {
-          "name": "Phone",
-          "description": "Gaia Phone"
-        },
-        "fr": {
-          "name": "téléphone",
-          "description": "téléphone Gaia"
-        },
-        "zh-TW": {
-          "name": "電話",
-          "description": "Gaia 電話"
-        }
-      }
-    },
     "contacts": {
       "launch_path": "/contacts/index.html",
       "name": "Contacts",

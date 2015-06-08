@@ -62,7 +62,7 @@
     /**
      * Timeout to black the screen when locking.
      */
-    LOCKING_TIMEOUT: 10,
+    LOCKING_TIMEOUT: 0,
 
     /*
      * Wait for _dimNotice milliseconds during idle-screen-off
@@ -366,7 +366,7 @@
         window.removeEventListener('lockpanelchange', self);
         self.screenEnabled = false;
         self._inTransition = false;
-        self.screen.classList.add('screenoff');
+        //self.screen.classList.add('screenoff');
         clearTimeout(self._screenOffTimeout);
         self._screenOffTimeout = setTimeout(function realScreenOff() {
           self.setScreenBrightness(0, true);
@@ -446,7 +446,7 @@
         }
       }
 
-      this.screen.classList.remove('screenoff');
+      //this.screen.classList.remove('screenoff');
 
       // Attaching the event listener effectively turn on the hardware
       // device light sensor, which _must be_ done after power.screenEnabled.
