@@ -11,6 +11,7 @@
 /* global MockExtFb */
 /* global Mockfb */
 /* global MocksHelper */
+/* global MainNavigation */
 /* global MockMozContacts */
 /* global MockUtils */
 /* global MockWebrtcClient */
@@ -41,6 +42,7 @@ require('/shared/test/unit/mocks/mock_mozContacts.js');
 requireApp('communications/contacts/js/views/details.js');
 requireApp('communications/contacts/test/unit/mock_cache.js');
 requireApp('communications/contacts/test/unit/mock_navigation.js');
+requireApp('communications/contacts/test/unit/mock_main_navigation.js');
 requireApp('communications/contacts/test/unit/mock_contacts.js');
 requireApp('communications/contacts/test/unit/mock_contacts_list_obj.js');
 requireApp('communications/contacts/test/unit/mock_fb.js');
@@ -74,7 +76,6 @@ var _ = function(key) { return key; },
     favoriteMessage,
     detailsInner,
     TAG_OPTIONS,
-    Contacts,
     realContacts,
     realFb,
     mockContact,
@@ -90,6 +91,7 @@ requireApp('communications/contacts/js/tag_optionsstem.js');
 var SCALE_RATIO = 1;
 
 var mocksHelperForDetailView = new MocksHelper([
+  'MainNavigation',
   'ActivityHandler',
   'LazyLoader',
   'Cache',
@@ -687,7 +689,7 @@ suite('Render contact', function() {
         //assert.include(dom.innerHTML, contact.photo[0]);
 
         observer.disconnect();
-        var spy = sinon.spy(Contacts, 'updatePhoto');
+        var spy = sinon.spy(utils.dom, 'updatePhoto');
 
         var observer2 = new MutationObserver(function() {
           observer2.disconnect();
@@ -714,7 +716,7 @@ suite('Render contact', function() {
     setup(function () {
       this.sinon.spy(MockWebrtcClient, 'stop');
       this.sinon.spy(window.ActivityHandler, 'postCancel');
-      this.sinon.spy(Contacts.navigation, 'back');
+      this.sinon.spy(MainNavigation, 'back');
     });
 
     test('> going back from details', function () {
@@ -722,7 +724,7 @@ suite('Render contact', function() {
 
       sinon.assert.calledOnce(MockWebrtcClient.stop);
       sinon.assert.notCalled(ActivityHandler.postCancel);
-      sinon.assert.calledOnce(Contacts.navigation.back);
+      sinon.assert.calledOnce(MainNavigation.back);
     });
 
     test('> going back from details during an activity', function () {
@@ -731,7 +733,7 @@ suite('Render contact', function() {
 
       sinon.assert.calledOnce(MockWebrtcClient.stop);
       sinon.assert.calledOnce(ActivityHandler.postCancel);
-      sinon.assert.notCalled(Contacts.navigation.back);
+      sinon.assert.notCalled(MainNavigation.back);
 
       ActivityHandler.currentlyHandling = false;
     });
@@ -743,7 +745,7 @@ suite('Render contact', function() {
 
       sinon.assert.calledOnce(MockWebrtcClient.stop);
       sinon.assert.notCalled(ActivityHandler.postCancel);
-      sinon.assert.calledOnce(Contacts.navigation.back);
+      sinon.assert.calledOnce(MainNavigation.back);
 
       ActivityHandler.currentlyHandling = false;
       ActivityHandler.activityName = 'view';
@@ -759,7 +761,7 @@ suite('Render contact', function() {
 
       test('> should not navigate back', function() {
         triggerEvent(header, 'action');
-        sinon.assert.notCalled(Contacts.navigation.back);
+        sinon.assert.notCalled(MainNavigation.back);
       });
     });
   });

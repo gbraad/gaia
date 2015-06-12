@@ -1,5 +1,4 @@
 'use strict';
-/* global MockNavigationStack */
 /* global ConfirmDialog */
 /* exported MockContacts */
 /* exported COMMS_APP_ORIGIN */
@@ -18,9 +17,6 @@ var MockContacts = {
   isEmpty: function(prop) {
     return false;
   },
-  updatePhoto: function(photo, dest) {
-    dest.setAttribute('backgroundImage', photo);
-  },
   hideOverlay: function() {
   },
   loadFacebook: function(cb) {
@@ -32,7 +28,6 @@ var MockContacts = {
     importLive: function() {},
     importGmail: function() {}
   },
-  navigation: new MockNavigationStack(),
   checkCancelableActivity: function() {},
   cancel: function() {},
   confirmDialog: function() {

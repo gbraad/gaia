@@ -14,7 +14,9 @@
 /* global ActionMenu */
 /* global ICEData */
 /* global MergeHelper */
+/* global MainNavigation */
 /* global ContactsService */
+/* global Matcher */
 
 var contacts = window.contacts || {};
 
@@ -313,7 +315,8 @@ contacts.Form = (function() {
         thumbAction.classList.add(FB_CLASS);
       }
     }
-    Contacts.updatePhoto(currentPhoto, thumb);
+
+    utils.dom.updatePhoto(currentPhoto, thumb);
   }
 
   var showEdit = function showEdit(contact, fromUpdateActivity) {
@@ -633,7 +636,7 @@ contacts.Form = (function() {
       if ('mozNfc' in navigator && contacts.NFC) {
         contacts.NFC.stopListening();
       }
-      Contacts.navigation.home();
+      MainNavigation.home();
     };
 
     ContactsService.remove(
@@ -985,7 +988,7 @@ contacts.Form = (function() {
     LazyLoader.load(['/shared/js/text_normalizer.js',
                      '/shared/js/simple_phone_matcher.js',
                      '/shared/js/contacts/contacts_matcher.js'], function() {
-      contacts.Matcher.match(contact, 'active', callbacks);
+      Matcher.match(contact, 'active', callbacks);
     });
   };
 
@@ -1390,11 +1393,11 @@ contacts.Form = (function() {
       // The local contact now does not have a photo
       deviceContact.photo = null;
       var fbPhoto = ContactPhotoHelper.getFullResolution(fbContact);
-      Contacts.updatePhoto(fbPhoto, thumb);
+      utils.dom.updatePhoto(fbPhoto, thumb);
     }
     else {
       thumbAction.classList.remove('with-photo');
-      Contacts.updatePhoto(null, thumb);
+      utils.dom.updatePhoto(null, thumb);
     }
 
     if (!emptyForm()) {
@@ -1423,7 +1426,7 @@ contacts.Form = (function() {
       // our own copy that is at the right size.
       resizeBlob(this.result.blob, PHOTO_WIDTH, PHOTO_HEIGHT,
                  function(resized) {
-                   Contacts.updatePhoto(resized, thumb);
+                   utils.dom.updatePhoto(resized, thumb);
                    currentPhoto = resized;
                    if (fb.isFbContact(currentContact)) {
                      // We temporarily mark that there is a local photo chosen
