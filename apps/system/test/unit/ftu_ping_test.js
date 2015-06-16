@@ -570,7 +570,9 @@ suite('FtuPing', function() {
     });
 
     test('is IMEI for dogfooder', function(done) {
-      MockNavigatorSettings.mSettings['debug.performance_data.dogfooding'] = '1';
+      var mockSettings = MockNavigatorSettings.mSettings;
+      mockSettings['debug.performance_data.dogfooding'] = '1';
+
       FtuPing.initSettings().then(function() {
         var pingData = FtuPing.assemblePingData();
         assert.equal(pingData.pingID, 'fakeImei');

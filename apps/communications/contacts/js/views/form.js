@@ -15,6 +15,7 @@
 /* global ICEData */
 /* global MergeHelper */
 /* global MainNavigation */
+/* global ExtServices */
 /* global ContactsService */
 /* global Matcher */
 
@@ -370,7 +371,7 @@ contacts.Form = (function() {
         }
       };
 
-      Contacts.confirmDialog(null, msg, noObject, yesObject);
+      ConfirmDialog.show(null, msg, noObject, yesObject);
     };
   };
 
@@ -733,7 +734,7 @@ contacts.Form = (function() {
             msgId = 'ICEContactDelTelAll';
             ICEData.removeICEContact(currentContact.id);
           }
-          Contacts.confirmDialog(null, {'id': msgId},
+          ConfirmDialog.show(null, {'id': msgId},
                                  cancelObject);
         }
         else {
@@ -834,7 +835,7 @@ contacts.Form = (function() {
   var cookMatchingCallbacks = function cookMatchingCallbacks(contact) {
     return {
       onmatch: function(results) {
-        Contacts.extServices.showDuplicateContacts();
+        ExtServices.showDuplicateContacts();
 
         mergeHandler = function mergeHandler(e) {
           if (e.origin !== fb.CONTACTS_APP_ORIGIN) {
