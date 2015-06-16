@@ -4,6 +4,11 @@
 
 var NewMessageAccessor = require('./accessors');
 
+var appRoot = require('app-root-path');
+// TODO Change the path once requireFromApp becomes its own module
+var fromApp = require(appRoot +
+  '/shared/test/integration/require_from_app');
+
 function NewMessageView(client) {
   this.client = client;
   this.accessors = new NewMessageAccessor(client);
@@ -19,6 +24,12 @@ NewMessageView.prototype = {
   get recipients() {
     return this.accessors.recipients.map(function(recipient) {
       return recipient.text();
+    });
+  },
+
+  get recipientsPhoneNumbers() {
+    return this.accessors.recipients.map(function(recipient) {
+      return recipient.getAttribute('data-number');
     });
   },
 
@@ -53,6 +64,14 @@ NewMessageView.prototype = {
     return this.accessors.recipients.some(function(recipient) {
       return recipient.getAttribute('class').indexOf('invalid') > -1;
     });
+  },
+
+  openContactPicker: function() {
+    this.accessors.pickContactButton.tap();
+    var Contacts = fromApp('contacts').require('lib/contacts');
+    var contacts = new Contacts(this.client);
+    contacts.switchTo();
+    return contacts;
   },
 
   typeMessage: function(message) {
